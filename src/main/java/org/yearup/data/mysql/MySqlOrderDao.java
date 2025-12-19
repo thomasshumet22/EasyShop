@@ -27,7 +27,7 @@ public class MySqlOrderDao extends MySqlDaoBase implements OrderDao
             connection = getConnection();
             connection.setAutoCommit(false);
 
-            // 1) Create order row
+
             String orderSql =
                     "INSERT INTO orders (user_id, date, address, city, state, zip, shipping_amount) " +
                             "VALUES (?, NOW(), '', '', '', '', 0.00)";
@@ -46,8 +46,7 @@ public class MySqlOrderDao extends MySqlDaoBase implements OrderDao
 
             int orderId = keys.getInt(1);
 
-            // 2) Insert order line items
-            // Your DB columns are: order_id, product_id, sales_price, quantity, discount
+
             String itemSql =
                     "INSERT INTO order_line_items (order_id, product_id, sales_price, quantity, discount) " +
                             "VALUES (?, ?, ?, ?, ?)";
@@ -56,7 +55,7 @@ public class MySqlOrderDao extends MySqlDaoBase implements OrderDao
 
             for (ShoppingCartItem item : cart.getItems().values())
             {
-                // If product is null here, your ShoppingCartDao isn't loading product details.
+
                 if(item.getProduct() == null)
                     throw new RuntimeException("Cart item product is null for productId=" + item.getProductId());
 
@@ -70,7 +69,7 @@ public class MySqlOrderDao extends MySqlDaoBase implements OrderDao
 
             itemStmt.executeBatch();
 
-            // 3) Clear shopping cart
+
             String clearSql = "DELETE FROM shopping_cart WHERE user_id = ?";
             PreparedStatement clearStmt = connection.prepareStatement(clearSql);
             clearStmt.setInt(1, userId);

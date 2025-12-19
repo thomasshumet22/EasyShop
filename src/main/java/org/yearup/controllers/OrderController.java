@@ -53,10 +53,7 @@ public class OrderController
             if (cart == null || cart.getItems() == null || cart.getItems().isEmpty())
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cart is empty.");
 
-            // Your DAO will:
-            // 1) create order
-            // 2) create order_line_items
-            // 3) clear shopping_cart
+
             Order created = orderDao.createOrder(userId, cart);
 
             return new ResponseEntity<>(created, HttpStatus.CREATED);

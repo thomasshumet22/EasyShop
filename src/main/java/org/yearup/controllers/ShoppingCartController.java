@@ -81,8 +81,7 @@ public class ShoppingCartController
         }
     }
 
-    // PUT https://localhost:8080/cart/products/15
-    // BODY: { "quantity": 3 }  (Insomnia might send more, but quantity is what we use)
+
     @PutMapping("/products/{productId}")
     public ShoppingCart updateProductInCart(@PathVariable int productId,
                                             @RequestBody ShoppingCartItem item,
@@ -113,7 +112,7 @@ public class ShoppingCartController
         }
     }
 
-    // DELETE https://localhost:8080/cart
+
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean clearCart(Principal principal)
